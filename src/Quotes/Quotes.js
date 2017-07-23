@@ -32,9 +32,13 @@ export default class Quotes extends PureComponent {
           }
           content={<Image src={this.getBase64(quote.get('personName'))} size='small'/>}
         />
-        <label style={{ fontWeight: 600 }}>{quote.get('personName')}: </label>
-        <span>{quote.get('chatMessage')}</span>
-        <div style={{ fontWeight: 600 }}>{dispTime && `[${quote.get('dateCreated')}]`}</div>
+      <label style={{ fontWeight: 600, marginRight: 6, paddingTop: 8 }}>{quote.get('personName')}: </label>
+        {
+          dispTime
+          &&
+          <div style={{ fontWeight: 600, marginRight: 6, paddingTop: 8 }}>{`[${quote.get('dateCreated')}] - `}</div>
+        }
+        <span style={{ paddingTop: 8 }}>{quote.get('chatMessage')}</span>
       </div>
     );
   }
