@@ -5,10 +5,10 @@ This is the `VIP Chatroom App` that Depth First Academy uses as part of it's pre
 
 
 ###### Know/Learn These
-You'll be expected to know all of the following in order to do this project:
+You'll be expected to be familiar with these in order to pass the pre-interview project:
 - ReactJS (no Redux necessary, just basic React is fine)
-- HTTP Requests (just GET)
-- HTML/CSS (well really, JSX, but typically you)
+- HTTP Requests
+- HTML/CSS
 - How to use the command-line/terminal enough to navigate around and execute programs
 
 (internal note. Create links on here to pages that better give a list of resources to go learn from)
@@ -25,6 +25,8 @@ What you'll need to have installed on your machine in order to do this project w
 You're gonna be creating a chat app in the browser using ReactJS that lets the user who is using your program add messages to a "chat room" as well as pull down data from a locally run API of various celebrities for things they've been known to say.
 
 This is NOT meant to be a _real_ chat app that lets multiple, actual users connect, but rather it'll be more just for your own use, and to have fake people in the chat room. (Hey, if I can't have friends, I'll just pretend I have them!).
+
+Also, feel free to install any NPM libraries that will be useful to you (HTTP libraries, UI library, or whatever)
 
 The chat app should have the following features:
 - A section on the screen where the messages of the users in the chatroom are added in a "most recent message added goes to the bottom" type of way

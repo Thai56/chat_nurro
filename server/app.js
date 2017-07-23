@@ -39,15 +39,17 @@ function kickOffRandomQuoteAdding() {
     else if (random(1, 5) === 5) {
       newChats.push(
         randomQuoteGenerator(),
-        randomQuoteGenerator()
+        // randomQuoteGenerator()
       );
     }
     else if (random(1, 8) === 8) {
       newChats.push(
         randomQuoteGenerator(),
-        randomQuoteGenerator(),
-        randomQuoteGenerator()
+        // randomQuoteGenerator(),
+        // randomQuoteGenerator()
       );
     }
   }, 2000)
 }
+
+console.log('now listening on port', PORT);
