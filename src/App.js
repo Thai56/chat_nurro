@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { fromJS } from 'immutable'
 import ReactDOM from 'react-dom';
 import base64Img from 'base64-img';
-import {Image, Popup, Message, Header, Icon } from 'semantic-ui-react';
+import {Image, Popup, Message, Header, Icon, Segment, TextArea, Form, Button } from 'semantic-ui-react';
 import lodash from 'lodash';
 import ScrollToTop from 'react-scroll-up'
 import Quotes from './Quotes/Quotes';
@@ -78,20 +78,6 @@ class App extends Component {
     }
   }
 
-//   var initMyLib = function() {
-//   templog.prepend( lognumber++ + '. initMyLib is invoked\n' );
-//   if (typeof(myLib) == 'undefined') {
-//     setTimeout(initMyLib, 50);
-//   } else {
-//     useMyLib();
-//   }
-// }
-  // intoMyLib = () => {
-  //   if (this.state.quotes.size < 48) {
-  //
-  //   }
-  // }
-
   getNewMessages = () => {
     _.getNewMessages().then(res => {
       // this.setState({newMessages: fromJS(res)});
@@ -144,118 +130,87 @@ class App extends Component {
   handleTimeDisplay = () => this.setState(prev => ({ displayTime: !prev.displayTime }))
 
   componentWillUpdate() {
-    var node = this.refs.wrap;
+    const node = this.refs.wrap;
     this.shouldScrollBottom = node.scrollTop + node.clientHeight === node.scrollHeight;
   }
   componentDidUpdate() {
-    // var el = this.refs.wrap;
-    // console.log('el', el.scrollTop, el.offsetHeight, el.scrollHeight);
-    // el.scrollTop = el.scrollHeight;
-
-    console.log(this.refs);
     if (this.shouldScrollBottom) {
-      var node = this.refs.wrap;
+      const node = this.refs.wrap;
       node.scrollTop = node.scrollHeight
     }
   }
 
   render() {
     return (
-      <div className="App" style={{ paddingTop: 20}}>
-        <Header as='h3' attached>Chat Nurro</Header>
+      <div className="App">
+        <Header as='h3' inverted attached style={{ marginBottom: 16 }}>Chat Nurro</Header>
 
-        <button
-          style={{ position: 'absolute', marginTop: 10, right: 10 }}
-          onClick={this.handleTimeDisplay}
-        >
-        {!this.state.displayTime ? 'See Times' : 'Hide Times'}
-        </button>
+        <section id='container' style={{ padding: 20, backgroundColor: '#F6F6F6' }}>
 
-        <Popup
-          on='hover'
-          trigger={<Image avatar src={this.state.neil} size='mini' />}
-          content={<Image src={this.state.neil} size='small'/>}
-        />
-        <Popup
-          on='hover'
-          trigger={<Image avatar src={this.state.mikeTyson} size='mini' />}
-          content={<Image src={this.state.mikeTyson} size='small'/>}
-        />
-        <Popup
-          on='hover'
-          trigger={<Image avatar src={this.state.obi} size='mini' />}
-          content={<Image src={this.state.obi} size='small'/>}
-        />
-        <Popup
-          on='hover'
-          trigger={<Image avatar src={this.state.chuck} size='mini' />}
-          content={<Image src={this.state.chuck} size='small'/>}
-        />
-        <Popup
-          on='hover'
-          trigger={<Image avatar src={this.state.user} size='mini' />}
-          content={<Image src={this.state.user} size='small'/>}
-        />
+          <div style={{ position: 'relative', width: '100%', height: 40 }}>
+            <Button
+              positive
+              style={{ position: 'absolute', right: 0 }}
+              onClick={this.handleTimeDisplay}
+            >
+            {!this.state.displayTime ? 'See Times' : 'Hide Times'}
+          </Button>
+          </div>
 
-      {<div id='btn-container' style={{ marginBottom: 16 }}>
-          {/*this.state.showInitBtn &&
-            <button onClick={() => this.fetchMessage() }>see quotes</button>*/}
-        </div>}
+          <Segment style={{ backgroundColor: '#F6F6F6' }}>
+            <div style={{ backgroundColor: '#F6F6F6', margin: 10, overflowY: 'scroll', height: '60vh', borderRadius: 10 }} ref='wrap'>
+            {
+              this.state.quotes.size
+              ?
+              this.state.quotes.map((quote, i) => {
+                return (
+                  <Quotes
+                    key={i}
+                    quote={quote}
+                    user={this.state.user}
+                    obi={this.state.obi}
+                    mikeTyson={this.state.mikeTyson}
+                    neil={this.state.neil}
+                    chuck={this.state.chuck}
+                    dispTime={this.state.displayTime}
+                  />
+                )
+              })
+              :
+              <LoadingSpinner />
+            }
+              <ScrollToTop showUnder={160}>
+                <Icon id='scroll-up' name='hand pointer' size='large'/>
+              </ScrollToTop>
+            </div>
 
-        <div style={{ overflowY: 'scroll', height: 400, border: '1px solid black' }} ref='wrap'>
-        {
-          this.state.quotes.size
-          ?
-          this.state.quotes.map((quote, i) => {
-            return (
-              <Quotes
-                key={i}
-                quote={quote}
-                user={this.state.user}
-                obi={this.state.obi}
-                mikeTyson={this.state.mikeTyson}
-                neil={this.state.neil}
-                chuck={this.state.chuck}
-                dispTime={this.state.displayTime}
-              />
-            )
-          })
-          :
-          <LoadingSpinner />
-        }
-          <ScrollToTop showUnder={160}>
-            <Icon id='scroll-up' name='hand pointer' size='large'/>
-          </ScrollToTop>
-        </div>
-        {
-          this.state.quotes.size < 48
-          &&
-          this.state.quotes.size > 0
-          &&
-          <button style={{ marginBottom: 16 }}
-            disabled={this.state.quotes.size > 48}
-            onClick={this.next}>
-            next</button>
-        }
+          </Segment>
+          { /*
+            this.state.quotes.size < 48
+            &&
+            this.state.quotes.size > 0
+            &&
+            <button style={{ marginBottom: 16 }}
+              disabled={this.state.quotes.size > 48}
+              onClick={this.next}>
+              next</button> */
+          }
 
-        <form onSubmit={this.addToChatBox} style={{ margin: 30 }}>
-          {<input value={this.state.textVal} onChange={this.handleInputText}/>}
-          {/*<TextArea
-            placeholder='Try adding multiple lines'
-            value={this.state.textVal} onChange={this.handleInputText}
-          />*/}
-          <button disabled={this.state.textVal.length === 0}>Send</button>
-        </form>
+          <Form onSubmit={this.addToChatBox} style={{ margin: 30 }} style={{ width: '100%' }}>
+            {/*<input value={this.state.textVal} onChange={this.handleInputText}/>*/}
+            <TextArea value={this.state.textVal} onKeyPress={(e) => e.which === 13 && this.addToChatBox(e)} onChange={this.handleInputText} />
+            <Button style={{ marginTop: 10 }} floated='right' primary disabled={this.state.textVal.length === 0} content='Send'/>
+          </Form>
 
-        {
-          this.state.noMessage && <Message warning>No New Messages Please Try Again In One Moment</Message>
-        }
-        {
-          this.state.quotes.size > 48
-          &&
-          <button style={{ marginBottom: 16 }} onClick={this.getNewMessages}>next</button>
-        }
-
+          {
+            this.state.noMessage && <Message warning>No New Messages Please Try Again In One Moment</Message>
+          }
+          { /*
+            this.state.quotes.size > 48
+            &&
+            <button style={{ marginBottom: 16 }} onClick={this.getNewMessages}>next</button> */
+          }
+        </section>
       </div>
     );
   }

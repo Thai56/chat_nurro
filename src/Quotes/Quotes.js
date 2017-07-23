@@ -22,45 +22,19 @@ export default class Quotes extends PureComponent {
   render() {
     const { quote, dispTime } = this.props;
     return (
-      <div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', paddingLeft: 16 }}>
-          <Popup
-            on='hover'
-            trigger={
-              <div>
-                <Image avatar src={this.getBase64(quote.get('personName'))} size='mini' />
-              </div>
-            }
-            content={<Image src={this.getBase64(quote.get('personName'))} size='small'/>}
-          />
-          <label style={{ fontWeight: 600 }}>{quote.get('personName')}: </label>
-          <span>{quote.get('chatMessage')}</span>
-          <div style={{ fontWeight: 600 }}>{dispTime && `[${quote.get('dateCreated')}]`}</div>
-        </div>
-        { /*
-          this.props.quotes.size
-          ?
-          this.props.quotes.map((obj, i) => {
-          return (
-            <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 10, paddingLeft: 16 }} key={i}>
-              <Popup
-                on='hover'
-                trigger={
-                  <div>
-                    <Image avatar src={this.getBase64(obj.get('personName'))} size='mini' />
-                  </div>
-                }
-                content={<Image src={this.getBase64(obj.get('personName'))} size='small'/>}
-              />
-              <label style={{ fontWeight: 600 }}>{obj.get('personName')}: </label>
-              <span>{obj.get('chatMessage')}</span>
-              <div>{obj.get('dateCreated')}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', margin: 10 }}>
+        <Popup
+          on='hover'
+          trigger={
+            <div>
+              <Image avatar src={this.getBase64(quote.get('personName'))} size='mini' />
             </div>
-          );
-        })
-        :
-        <LoadingSpinner /> */
-      }
+          }
+          content={<Image src={this.getBase64(quote.get('personName'))} size='small'/>}
+        />
+        <label style={{ fontWeight: 600 }}>{quote.get('personName')}: </label>
+        <span>{quote.get('chatMessage')}</span>
+        <div style={{ fontWeight: 600 }}>{dispTime && `[${quote.get('dateCreated')}]`}</div>
       </div>
     );
   }
