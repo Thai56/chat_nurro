@@ -45,11 +45,10 @@ function kickOffRandomQuoteAdding() {
     else if (random(1, 8) === 8) {
       newChats.push(
         randomQuoteGenerator(),
+        // Was getting up to 500 results back and slowing the front-end
         // randomQuoteGenerator(),
         // randomQuoteGenerator()
       );
     }
   }, 2000)
 }
-
-console.log('now listening on port', PORT);

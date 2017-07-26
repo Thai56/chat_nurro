@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 const LoadingSpinner = () => (
   <div className='loading_spinner-wrap'>
